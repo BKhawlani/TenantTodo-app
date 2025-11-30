@@ -1,0 +1,42 @@
+services:
+
+  postgres:
+    image: postgres:15
+    container_name: tenant_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: tenantdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ../tenant-backend
+      dockerfile: Dockerfile
+    container_name: tenant_backend
+    restart: always
+    environment:
+    DATABASE_URL: postgresql://admin:admin123@postgres:5432/tenantdb
+    JWT_SECRET: mysecret
+    depends_on:
+      - postgres
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ../tenant-frontend
+      dockerfile: Dockerfile
+    container_name: tenant_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
