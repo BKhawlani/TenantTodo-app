@@ -25,6 +25,6 @@
     "nodemailer": "^7.0.11"
   },
   "devDependencies": {
-    "prisma": "^7.0.1"
+    "prisma": "^5.22.0"
   }
 }
