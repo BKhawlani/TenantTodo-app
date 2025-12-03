@@ -34,7 +34,7 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        working-directory: ./tenant-backend
+        working-directory: ./
         run: npm install
 
       - name: Push Prisma schema
