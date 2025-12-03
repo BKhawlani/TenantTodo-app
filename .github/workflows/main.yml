@@ -34,18 +34,15 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        working-directory: ./
         run: npm install
 
       - name: Push Prisma schema
-        working-directory: ./tenant-backend
-        run: npx prisma db push
         env:
           DATABASE_URL: postgresql://admin:admin123@localhost:5432/tenantdb?schema=public
+        run: npx prisma db push
 
       - name: Run tests
-        working-directory: ./tenant-backend
-        run: npm test
         env:
           DATABASE_URL: postgresql://admin:admin123@localhost:5432/tenantdb?schema=public
           JWT_SECRET: supersecret_jwt_key
+        run: npm test
