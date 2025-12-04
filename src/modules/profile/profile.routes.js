@@ -68,17 +68,7 @@ router.put("/update-password", authMiddleware, async (req, res) => {
       where: { id: req.user.id },
       data: { passwordHash: newHash }
     });
-await sendEmail(
-  user.email,
-  "Your Password Was Changed",
-  `
-    <h2>Hello ${user.name},</h2>
-    <p>Your password was changed successfully.</p>
-    <p>If you didn’t request this change, please reset your password immediately.</p>
-    <br>
-    <p>— TenantToDo Security Team</p>
-  `
-);
+
 
     return res.json({ message: "Password updated." });
 
